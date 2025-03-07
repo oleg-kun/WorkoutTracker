@@ -25,5 +25,5 @@ class Exercise(models.Model):
     weight = models.FloatField()
 
     def __str__(self):
-        return f"This is exercise {self.name}, {self.sets} x {self.reps} {self.weight}kg"
+        return f"This is exercise {self.name}, {self.sets} x {self.reps}, {self.weight}kg"
 
