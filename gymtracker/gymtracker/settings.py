@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #added apps
     'workouts',
     'users.apps.UsersConfig',
+    # 'rest-framework',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'gymtracker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
