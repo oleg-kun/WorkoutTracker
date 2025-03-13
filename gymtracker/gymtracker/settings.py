@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #added apps
     'workouts',
     'users.apps.UsersConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

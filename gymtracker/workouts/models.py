@@ -16,7 +16,7 @@ class Workout(models.Model):
     name = models.CharField(max_length=128)
 
     def __str__(self):
-        return f"This is workout of {self.name} ({self.date})"
+        return f"This is workout of {self.user}. It's name  {self.name}. Workout was({self.date})"
 class Exercise(models.Model):
     workout_connection = models.ForeignKey(Workout, on_delete=models.CASCADE, related_name="exercises") #привязка к тренировке
     name = models.CharField(max_length=50)
