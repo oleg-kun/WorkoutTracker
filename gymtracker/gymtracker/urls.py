@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import SimpleRouter
 
-from workouts.views import WorkoutView
+from workouts.views import WorkoutView, ExerciseView
+
+
 
 router = SimpleRouter()
 router.register('api/workout', WorkoutView)
-
+router.register('api/exercise', ExerciseView)
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
