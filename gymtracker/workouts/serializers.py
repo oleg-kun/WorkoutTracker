@@ -14,7 +14,7 @@ class WorkoutSerializer(ModelSerializer):
 
 
 class ExerciseSerializer(ModelSerializer):
-    workout_connection = StringRelatedField()
+    # workout_connection = StringRelatedField()
 
     class Meta:
         model = Exercise
