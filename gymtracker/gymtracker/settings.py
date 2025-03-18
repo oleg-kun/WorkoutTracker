@@ -84,7 +84,6 @@ DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = (
-
     'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
