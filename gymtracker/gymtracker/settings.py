@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'social_django',
     'users.apps.UsersConfig',
     'rest_framework',
+    'django_filters',
 
     'workouts',
 ]

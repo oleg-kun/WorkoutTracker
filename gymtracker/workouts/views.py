@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -13,10 +15,18 @@ def authentication_github(request):
 class WorkoutView(ModelViewSet):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
-    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['name']
+    search_fields = ['name', 'user']
+    ordering_fields = ['name', 'date']
+    # permission_classes = [IsAuthenticated]
 
 
 class ExerciseView(ModelViewSet):
     queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
-    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['name']
+    search_fields = ['name', 'workout_connection__name']
+    ordering_fields = ['name', 'weight']
+    # permission_classes = [IsAuthenticated]

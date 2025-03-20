@@ -6,7 +6,7 @@ from workouts.models import Workout, Exercise
 
 
 class WorkoutSerializer(ModelSerializer):
-    user = StringRelatedField()
+    # user = StringRelatedField() TODO
 
     class Meta:
         model = Workout
@@ -14,8 +14,7 @@ class WorkoutSerializer(ModelSerializer):
 
 
 class ExerciseSerializer(ModelSerializer):
-    # workout_connection = StringRelatedField()
-
+    # workout_connection = StringRelatedField() TODO
     class Meta:
         model = Exercise
         fields = ['workout_connection', 'name', 'sets', 'reps', 'weight']
