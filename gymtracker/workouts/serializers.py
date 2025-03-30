@@ -10,11 +10,11 @@ class WorkoutSerializer(ModelSerializer):
 
     class Meta:
         model = Workout
-        fields = ['user', 'date', 'name']
+        fields = '__all__'
 
 
 class ExerciseSerializer(ModelSerializer):
     # workout_connection = StringRelatedField() TODO
     class Meta:
         model = Exercise
-        fields = ['workout_connection', 'name', 'sets', 'reps', 'weight']
+        fields = '__all__'
