@@ -129,7 +129,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # added CustomUser model
 AUTH_USER_MODEL = 'users.CustomUser'
-
-# added GitHub OAth
-SOCIAL_AUTH_GITHUB_KEY = 'Ov23lisrIS0BxVPz2Htf'
-SOCIAL_AUTH_GITHUB_SECRET = '131f8b09fe096fba6eaff4ef5afa492950cbef0d'

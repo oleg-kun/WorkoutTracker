@@ -54,6 +54,7 @@ class ExerciseView(ModelViewSet):
         instance = self.get_object()
         if instance.workout_connection.user.id == request.user.id:
             serializer = self.get_serializer(instance)
+            print(">>> my retrieve() called")
             return Response(serializer.data)
         return Response({"detail": "У вас нет доступа к этому упражнению."}, status=403)
 
