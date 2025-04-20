@@ -133,3 +133,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # added CustomUser model
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# added GitHub OAth
+
