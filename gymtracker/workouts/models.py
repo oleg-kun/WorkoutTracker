@@ -14,7 +14,7 @@ class Workout(models.Model):
     name = models.CharField(max_length=128)
 
     def __str__(self):
-        return f"ID{self.id}. GymDay of {self.user}. Name {self.name}. Workout was {self.date}"
+        return f"ID{self.id}. GymDay of {self.user}. Name {self.name}. Workout was {self.date.date()}"
 
 
 class Exercise(models.Model):

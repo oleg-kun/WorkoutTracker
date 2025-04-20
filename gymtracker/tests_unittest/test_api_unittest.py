@@ -5,8 +5,8 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from django.urls import reverse
 
-from workouts.models import Workout
-from workouts.serializers import WorkoutSerializer
+from workouts.models import Workout, Exercise
+from workouts.serializers import WorkoutSerializer, ExerciseSerializer
 
 User = get_user_model()
 
@@ -29,7 +29,7 @@ class WorkoutApiTestCase(APITestCase):
     def test_get_filter(self):
         workout_1 = Workout.objects.create(user=self.user2, name='Test workout 1 by test_user_1')
         workout_2 = Workout.objects.create(user=self.user1, name='Test workout 2')
-        workout_3 = Workout.objects.create(user=self.user2, name='Test workout 1')  # filter workout name
+        workout_3 = Workout.objects.create(user=self.user1, name='Test workout 1')  # filter workout name
         workout_4 = Workout.objects.create(user=self.user1, name='Test workout 1')  # filter workout name
         url = reverse('workout-list')
         responce = self.client.get(url, data={'name': 'Test workout 1'})
@@ -38,11 +38,11 @@ class WorkoutApiTestCase(APITestCase):
         self.assertEqual(serializer_data, responce.data)
 
     def test_get_search(self):
-        workout_1 = Workout.objects.create(user=self.user2, name='Test workout 1 by test_user_1')  # search workout name
-        workout_2 = Workout.objects.create(user=self.user1, name='Test workout 2')  # search user name
-        workout_3 = Workout.objects.create(user=self.user2, name='Test workout 3')
+        workout_1 = Workout.objects.create(user=self.user1, name='Test workout 1 FIND_ME_TEXT')  # search workout name
+        workout_2 = Workout.objects.create(user=self.user1, name='Test workout 2 FIND_ME_TEXT')
+        workout_3 = Workout.objects.create(user=self.user1, name='Test workout 3')
         url = reverse('workout-list')
-        responce = self.client.get(url, data={'search': 'test_user_1'})
+        responce = self.client.get(url, data={'search': 'FIND_ME_TEXT'})
         serializer_data = WorkoutSerializer([workout_1, workout_2], many=True).data
         self.assertEqual(status.HTTP_200_OK, responce.status_code)
         self.assertEqual(serializer_data, responce.data)
@@ -93,3 +93,23 @@ class WorkoutApiTestCase(APITestCase):
         responce = self.client.delete(url, data=json_data,
                                       content_type='application/json')
         self.assertEqual(status.HTTP_204_NO_CONTENT, responce.status_code)
+
+
+class ExerciseApiTestCase(APITestCase):
+    def setUp(self):
+        self.user1 = User.objects.create_user(username='test_user_1', password='testpassword')
+        self.user2 = User.objects.create_user(username='test_user_2', password='testpassword')
+        self.client.login(username='test_user_1', password='testpassword')
+        self.workout_1 = Workout.objects.create(user=self.user1, name='Test workout 1')
+
+    def test_get(self):
+
+        exercise_1 = Exercise.objects.create(workout_connection=self.workout_1, name='Test exercise 1',
+                                             sets=4,reps=10,weight=30)
+        exercise_2 = Exercise.objects.create(workout_connection=self.workout_1, name='Test exercise 2',
+                                            sets=4,reps=15,weight=40)
+        url = reverse('exercise-list')
+        responce = self.client.get(url)
+        serializer_data = ExerciseSerializer([exercise_1, exercise_2], many=True).data
+        self.assertEqual(status.HTTP_200_OK, responce.status_code)
+        self.assertEqual(serializer_data, responce.data)

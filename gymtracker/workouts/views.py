@@ -21,20 +21,20 @@ class WorkoutView(ModelViewSet):
     search_fields = ['name', 'user__username']
     ordering_fields = ['name', 'date']
     permission_classes = [UserOnlyPermission]
-    #
-    # def perform_create(self, serializer):
-    #     serializer.validated_data['user'] = self.request.user
-    #     serializer.save()
 
-    # def retrieve(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     if instance.user.id == request.user.id:
-    #         serializer = self.get_serializer(instance)
-    #         return Response(serializer.data)
-    #     return Response({"detail": "У вас нет доступа к этой тренировке."}, status=403)
+    def perform_create(self, serializer):
+        serializer.validated_data['user'] = self.request.user
+        serializer.save()
 
-    # def get_queryset(self):
-    #     return Workout.objects.filter(user=self.request.user)
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.user.id == request.user.id:
+            serializer = self.get_serializer(instance)
+            return Response(serializer.data)
+        return Response({"detail": "У вас нет доступа к этой тренировке."}, status=403)
+
+    def get_queryset(self):
+        return Workout.objects.filter(user=self.request.user)
 
 
 class ExerciseView(ModelViewSet):
