@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   db:
     image: postgres:13
@@ -13,7 +14,7 @@ services:
 
   web:
     build:
-      context: .
+      context: . 
     container_name: gymtracker_web
     command: gunicorn gymtracker.wsgi:application --bind 0.0.0.0:8000
     volumes:
@@ -25,5 +26,6 @@ services:
     env_file:
       - .env
     working_dir: /app
+
 volumes:
   postgres_data:
