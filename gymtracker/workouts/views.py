@@ -18,7 +18,7 @@ class WorkoutView(ModelViewSet):
     serializer_class = WorkoutSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['name']
-    search_fields = ['name', 'user']
+    search_fields = ['name', 'user__username']
     ordering_fields = ['name', 'date']
     permission_classes = [UserOnlyPermission]
 
@@ -54,7 +54,6 @@ class ExerciseView(ModelViewSet):
         instance = self.get_object()
         if instance.workout_connection.user.id == request.user.id:
             serializer = self.get_serializer(instance)
-            print(">>> my retrieve() called")
             return Response(serializer.data)
         return Response({"detail": "У вас нет доступа к этому упражнению."}, status=403)
 

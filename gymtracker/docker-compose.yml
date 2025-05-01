@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:13
+    container_name: gymtracker_db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build:
+      context: .
+    container_name: gymtracker_web
+    command: gunicorn gymtracker.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    working_dir: /app
+volumes:
+  postgres_data:
