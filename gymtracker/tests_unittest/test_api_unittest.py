@@ -1,9 +1,10 @@
 import json
-
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.urls import reverse
+from dotenv import load_dotenv
+import os
 
 from workouts.models import Workout, Exercise
 from workouts.serializers import WorkoutSerializer, ExerciseSerializer
@@ -13,6 +14,8 @@ User = get_user_model()
 
 class WorkoutApiTestCase(APITestCase):
     def setUp(self):
+        load_dotenv("C:/Users/User/PycharmProjects/projectWorckoutTracker/gymtracker/.env")
+        load_dotenv("C:/Users/User/PycharmProjects/projectWorckoutTracker/gymtracker/.env.local")
         self.user1 = User.objects.create_user(username='test_user_1', password='testpassword')
         self.user2 = User.objects.create_user(username='test_user_2', password='testpassword')
         self.client.login(username='test_user_1', password='testpassword')
